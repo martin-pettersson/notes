@@ -1,0 +1,29 @@
+{
+    "name": "@notes/data-storage",
+    "description": "Browser storage data layer implementation.",
+    "version": "0.1.0",
+    "main": "obj/index.js",
+    "type": "module",
+    "sideEffects": false,
+    "exports": {
+        ".": "./obj/index.js",
+        "./datamappers": "./obj/datamappers/index.js",
+        "./repositories": "./obj/repositories/index.js"
+    },
+    "scripts": {
+        "build": "tsc --build",
+        "test": "mocha --recursive test --reporter dot",
+        "cover": "c8 npm test",
+        "postinstall": "npm run build"
+    },
+    "dependencies": {
+        "typescript": "^4.6.4"
+    },
+    "devDependencies": {
+        "c8": "^7.11.2",
+        "chai": "^4.3.6",
+        "chai-as-promised": "^7.1.1",
+        "mocha": "^10.0.0",
+        "sinon": "^14.0.0"
+    }
+}

@@ -1,0 +1,19 @@
+{
+    "routerBuilder": {
+        "specifier": "@moonwalkingbits/apollo/routing",
+        "exportName": "RouterBuilder",
+        "singleton": true
+    },
+    "requestHandler": {
+        "specifier": "@moonwalkingbits/apollo/server",
+        "exportName": "RequestHandler",
+        "singleton": true
+    },
+
+    "createNote": "@notes/model/services::CreateNote",
+    "deleteNote": "@notes/model/services::DeleteNote",
+    "getNote": "@notes/model/services::GetNote",
+    "listNotes": "@notes/model/services::ListNotes",
+    "patchNote": "@notes/model/services::PatchNote",
+    "updateNote": "@notes/model/services::UpdateNote"
+}

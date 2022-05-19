@@ -1,0 +1,97 @@
+@use "sass:color";
+@use "settings/colors";
+@use "settings/roundings";
+@use "settings/spacings";
+@use "settings/typography";
+
+.note-list {
+    $surface: colors.surface("primary");
+
+    background: colors.background($of: $surface);
+    grid-area: note-list;
+    height: 100%;
+
+    &__header {
+        padding: spacings.$large * 2;
+    }
+
+    &__search-field {
+        $surface: colors.surface("tertiary");
+
+        align-items: center;
+        background: colors.background($of: $surface);
+        border-radius: roundings.$medium;
+        display: flex;
+        margin-bottom: spacings.$medium;
+        padding: spacings.$medium;
+
+        input {
+            background: inherit;
+            border: 0;
+            color: colors.color($of: colors.surface("background"));
+            font-size: 1em;
+            width: 100%;
+
+            &:focus {
+                outline: none;
+            }
+
+            &::placeholder {
+                color: colors.color($of: $surface);
+            }
+        }
+
+        button {
+            padding: 0;
+        }
+
+        .icon {
+            color: colors.color($of: $surface);
+        }
+
+        & + button {
+            width: 100%;
+        }
+    }
+
+    .note {
+        $surface: colors.surface("primary");
+        $border-color: colors.shade("900", colors.$blue);
+
+        background: colors.background($of: $surface);
+        border-bottom: solid 1px $border-color;
+        color: color.adjust(colors.shade("100", colors.$blue), $alpha: -0.125);
+        cursor: pointer;
+        padding: spacings.$large spacings.$large * 2;
+        position: relative;
+
+        &:first-child {
+            border-top: solid 1px $border-color;
+        }
+
+        &--selected {
+            background: colors.shade("900", colors.$blue);
+            color: colors.color($of: $surface);
+        }
+
+        &__title {
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
+            display: -webkit-box;
+            font-family: typography.family($for: "system");
+            font-weight: 700;
+            margin-bottom: spacings.$small;
+            overflow: hidden;
+        }
+
+        &__content {
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            display: -webkit-box;
+            font-family: typography.family($for: "system");
+            font-weight: 400;
+            overflow: hidden;
+            padding: 0;
+        }
+    }
+}

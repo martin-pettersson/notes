@@ -1,0 +1,48 @@
+@use "sass:map";
+
+@function shade($shade, $of) {
+    @return map.get($of, $shade);
+}
+
+@function surface($surface) {
+    @return map.get($surfaces, $surface);
+}
+
+@function color($of) {
+    @return map.get($of, "color");
+}
+
+@function background($of) {
+    @return map.get($of, "background");
+}
+
+$black: () !default;
+$gray: () !default;
+$blue: () !default;
+$white: () !default;
+$surfaces: (
+    "primary": (
+        "background": shade("800", $blue),
+        "color": shade("100", $blue)
+    ),
+    "background": (
+        "background": shade("100", $gray),
+        "color": shade("900", $gray)
+    ),
+    "accent": (
+        "background": shade("700", $blue),
+        "color": shade("100", $blue)
+    ),
+    "secondary": (
+        "background": shade("300", $gray),
+        "color": shade("900", $gray)
+    ),
+    "tertiary": (
+        "background": shade("100", $gray),
+        "color": shade("600", $gray)
+    ),
+    "quaternary": (
+        "background": shade("300", $black),
+        "color": shade("900", $white)
+    )
+);

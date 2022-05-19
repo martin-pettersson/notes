@@ -1,0 +1,12 @@
+{
+    "name": "@notes/notes",
+    "workspaces": [
+        "model",
+        "data/memory",
+        "data/storage",
+        "data/mongodb",
+        "data/rest",
+        "api",
+        "web"
+    ]
+}

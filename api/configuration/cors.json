@@ -1,0 +1,17 @@
+{
+    "allowedOrigins": [
+        "*"
+    ],
+    "allowedMethods": [
+        "GET",
+        "PUT",
+        "DELETE"
+    ],
+    "allowedHeaders": [
+        "Accept",
+        "Content-Type"
+    ],
+    "exposedHeaders": [
+        "Content-Type"
+    ]
+}

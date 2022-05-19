@@ -1,0 +1,43 @@
+/*
+|--------------------------------------------------------------------------
+| Configure Settings
+|--------------------------------------------------------------------------
+|
+| Specific settings should be defined here to make it easy to get an
+| overview of and make quick changes.
+|
+*/
+
+// NOTE This variable is injected at build time.
+@use "settings/typography" with ( $fonts: $fonts );
+
+// NOTE These variables are injected at build time.
+@use "settings/colors" with (
+    $black: $black,
+    $blue: $blue,
+    $gray: $gray,
+    $white: $white
+);
+
+@use "settings/body" with ( $surface: colors.surface("background") );
+
+/*
+|--------------------------------------------------------------------------
+| Include Components
+|--------------------------------------------------------------------------
+|
+| All components that are part of this stylesheet should be included here.
+|
+*/
+
+@forward "generic/reset";
+@forward "elements/body";
+@forward "elements/button";
+@forward "elements/h";
+@forward "components/application";
+@forward "components/view";
+@forward "components/views/notes";
+@forward "components/button";
+@forward "components/icon";
+@forward "components/note-list";
+@forward "components/note";

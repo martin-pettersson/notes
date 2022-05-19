@@ -1,0 +1,6 @@
+.view--notes {
+    display: grid;
+    grid-template-areas: "note-list note";
+    grid-template-columns: clamp(16rem, 30%, 20rem) 1fr;
+    grid-template-rows: auto;
+}

@@ -1,0 +1,21 @@
+@use "settings/body";
+@use "settings/colors";
+@use "settings/typography";
+
+html {
+    min-height: 100vh;
+    min-width: 100vw;
+}
+
+body {
+    background: colors.background($of: body.$surface);
+    color: colors.color($of: body.$surface);
+    display: grid;
+    font-family: typography.family($for: body.$font-family);
+    grid-template-areas: "content";
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    line-height: 1.2;
+    min-height: 100vh;
+    min-width: 100vw;
+}

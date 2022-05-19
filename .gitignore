@@ -1,0 +1,7 @@
+coverage/
+node_modules/
+obj/
+tsconfig.tsbuildinfo
+
+web/public/*
+!web/public/index.html

@@ -1,0 +1,17 @@
+@use "sass:map";
+
+@function family($for) {
+    @return map.get($fonts, $for, "family");
+}
+
+$fonts: () !default;
+
+@each $_, $font in $fonts {
+    @font-face {
+        font-display: map.get($font, "display");
+        font-family: map.get($font, "family");
+        font-style: map.get($font, "style");
+        font-weight: map.get($font, "weight");
+        src: map.get($font, "src");
+    }
+}

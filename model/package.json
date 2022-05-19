@@ -1,0 +1,37 @@
+{
+    "name": "@notes/model",
+    "description": "Notes model layer.",
+    "version": "0.1.0",
+    "main": "obj/index.js",
+    "type": "module",
+    "sideEffects": false,
+    "exports": {
+        ".": "./obj/index.js",
+        "./configuration": "./obj/configuration/index.js",
+        "./configuration/validation": "./obj/configuration/validation/index.js",
+        "./configuration/validation/note": "./obj/configuration/validation/note/index.js",
+        "./datamappers": "./obj/datamappers/index.js",
+        "./entities": "./obj/entities/index.js",
+        "./event": "./obj/event/index.js",
+        "./events": "./obj/events/index.js",
+        "./repositories": "./obj/repositories/index.js",
+        "./services": "./obj/services/index.js"
+    },
+    "scripts": {
+        "build": "tsc",
+        "test": "mocha --recursive test --reporter dot",
+        "cover": "c8 npm test",
+        "postinstall": "npm run build"
+    },
+    "dependencies": {
+        "typescript": "^4.6.4",
+        "uuid": "^8.3.2"
+    },
+    "devDependencies": {
+        "@types/uuid": "^8.3.4",
+        "c8": "^7.11.2",
+        "chai": "^4.3.6",
+        "mocha": "^10.0.0",
+        "sinon": "^14.0.0"
+    }
+}

@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  api:
+    build:
+      context: ../
+      dockerfile: api/Dockerfile
+      args:
+        environment: development
+    command: npm run dev --prefix api
+    env_file: .env
+    volumes:
+      - ../:/opt/notes
+    ports:
+      - "3000:3000"
+      - "9229:9229"
+    links:
+      - mongodb
+
+  mongodb:
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: notes
+      MONGO_INITDB_ROOT_PASSWORD: notes

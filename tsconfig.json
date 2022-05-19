@@ -1,0 +1,26 @@
+{
+    "references": [
+        {
+            "path": "model"
+        },
+        {
+            "path": "data/memory"
+        },
+        {
+            "path": "data/storage"
+        },
+        {
+            "path": "data/mongodb"
+        },
+        {
+            "path": "data/rest"
+        },
+        {
+            "path": "api"
+        },
+        {
+            "path": "web"
+        }
+    ],
+    "files": []
+}

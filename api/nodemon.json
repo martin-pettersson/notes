@@ -1,0 +1,19 @@
+{
+    "verbose": false,
+    "ignore": [
+        ".git/**/*",
+        "node_modules/**/*"
+    ],
+    "watch": [
+        "configuration/**/*",
+        "src/**/*",
+        "../model/src/**/*",
+        "../data/memory/src/**/*",
+        "../data/mongodb/src/**/*",
+        "configuration.*.json",
+        "configuration.json"
+    ],
+    "legacyWatch": true,
+    "ext": "ts,json",
+    "exec": "npm run start:nodemon"
+}

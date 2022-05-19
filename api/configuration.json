@@ -1,0 +1,31 @@
+{
+    "serviceProviders": [
+        "@notes/api/serviceproviders::ConfigurationProvider",
+        "@notes/api/serviceproviders::ContainerBindingsProvider",
+        "@notes/api/serviceproviders::EventProvider",
+        "@notes/api/serviceproviders::DataLayerProvider",
+        "@notes/api/serviceproviders::ValidationProvider",
+        "@notes/api/serviceproviders::ServerProvider",
+        "@notes/api/serviceproviders::RoutingProvider",
+        "@notes/api/serviceproviders::MiddlewareProvider"
+    ],
+    "middleware": [
+        "@moonwalkingbits/apollo/middleware::ErrorHandlingMiddleware",
+        "@notes/api/middleware::VersionMiddleware",
+        "@notes/api/middleware::CorsMiddleware",
+        "@moonwalkingbits/apollo/middleware::RoutingMiddleware"
+    ],
+    "controllers": [
+        "@notes/api/controllers::HealthController",
+        "@notes/api/controllers::NoteController",
+        "@notes/api/controllers::ConfigurationController"
+    ],
+    "configurationSources": {
+        "containerBindings": "configuration/containerBindings.json",
+        "eventListeners": "configuration/eventListeners.json",
+        "cors": "configuration/cors.json"
+    },
+    "dataLayer": {
+        "strategy": "memory"
+    }
+}

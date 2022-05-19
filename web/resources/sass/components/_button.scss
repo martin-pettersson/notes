@@ -1,0 +1,14 @@
+@use "objects/button";
+@use "settings/colors";
+
+.button {
+    @include button.styles();
+
+    &--primary {
+        $surface: colors.surface("primary");
+
+        background: colors.background($of: $surface);
+        color: colors.color($of: $surface);
+        text-transform: uppercase;
+    }
+}

@@ -1,0 +1,49 @@
+{
+	"extends": "../tsconfig.module.json",
+	"references": [
+		{
+			"path": "../model"
+		},
+		{
+			"path": "../data/memory"
+		},
+		{
+			"path": "../data/mongodb"
+		}
+	],
+	"include": [
+		"src/**/*"
+	],
+	"files": [
+		"src/server.ts"
+	],
+	"compilerOptions": {
+		"outDir": "obj",
+		"rootDir": "src",
+		"paths": {
+			"@notes/api": [
+				"api/src/index.js"
+			],
+			"@notes/api/*": [
+				"api/src/*"
+			],
+			"@notes/model/*": [
+				"model/src/*"
+			],
+			"@notes/data-memory/*": [
+				"data/memory/src/*"
+			],
+			"@notes/data-mongodb/*": [
+				"data/mongodb/src/*"
+			]
+		},
+		"types": [
+			"node"
+		],
+		"experimentalDecorators": true
+	},
+	"exclude": [
+		"node_modules",
+		"obj"
+	]
+}

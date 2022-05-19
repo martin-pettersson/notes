@@ -1,0 +1,4 @@
+@use "settings/colors";
+
+$surface: colors.surface("background") !default;
+$font-family: "text" !default;

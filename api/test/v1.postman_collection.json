@@ -1,0 +1,817 @@
+{
+	"info": {
+		"_postman_id": "b2f0eb1e-2c2e-421d-8843-13ca02629b4f",
+		"name": "v1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "notes",
+			"item": [
+				{
+					"name": "should be empty by default",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"should be successful\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"should be an empty array\", () => {\r",
+									"    pm.expect(pm.response.json()).to.be.an(\"array\");\r",
+									"    pm.expect(pm.response.json()).to.be.empty;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/notes",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"notes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "should reject unsupported content type",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"should fail\", () => {\r",
+									"    pm.response.to.have.status(415);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v1/notes",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"notes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "should reject invalid JSON",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"should fail\", () => {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v1/notes",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"notes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "should reject invalid entity",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"should fail\", () => {\r",
+									"    pm.response.to.have.status(422);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v1/notes",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"notes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "should create entity",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"should be successful\", () => {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"should be empty\", () => {\r",
+									"    pm.expect(pm.response.text()).to.be.empty;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"should provide link to created resource\", () => {\r",
+									"    pm.response.to.have.header(\"Location\");\r",
+									"    pm.expect(pm.response.headers.get(\"Location\")).to.match(/\\/v1\\/notes\\/[0-9a-fA-F]{8}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{12}$/);\r",
+									"});\r",
+									"\r",
+									"if (pm.response.status === \"Created\" && pm.response.headers.has(\"Location\")) {\r",
+									"    let location = pm.response.headers.get(\"Location\");\r",
+									"\r",
+									"    pm.environment.set(\"note\", location.substring(location.lastIndexOf(\"/\") + 1));\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Simple note\",\r\n    \"content\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v1/notes",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"notes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "should include created entity",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"should be successful\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"should include created entity\", () => {\r",
+									"    pm.expect(pm.response.json().length).to.equal(1);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/notes",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"notes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "should read created entity",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"should be successful\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/notes/{{note}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"notes",
+								"{{note}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "should reject unsupported content type",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"should fail\", () => {\r",
+									"    pm.response.to.have.status(415);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v1/notes/{{note}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"notes",
+								"{{note}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "should reject invalid JSON",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"should fail\", () => {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v1/notes/{{note}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"notes",
+								"{{note}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "should reject invalid entity",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"should fail\", () => {\r",
+									"    pm.response.to.have.status(422);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v1/notes/{{note}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"notes",
+								"{{note}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "should update entity",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"updatedTitle\", JSON.parse(pm.request.body.raw).title);\r",
+									"\r",
+									"pm.test(\"should be sucessful\", () => {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"should be empty\", () => {\r",
+									"    pm.expect(pm.response.text()).to.be.empty;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"{{note}}\",\r\n    \"title\": \"Updated note title\",\r\n    \"content\": \"\",\r\n    \"created\": \"2020-01-01T00:00:00.000Z\",\r\n    \"lastUpdated\": \"2020-02-01T00:00:00.000Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v1/notes/{{note}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"notes",
+								"{{note}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "should have updated entity",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"should be successful\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"should contain updated entity\", () => {\r",
+									"    pm.expect(pm.response.json()).to.include({\r",
+									"        id: pm.environment.get(\"note\"),\r",
+									"        title: pm.environment.get(\"updatedTitle\")\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"pm.environment.unset(\"updatedTitle\");\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/notes/{{note}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"notes",
+								"{{note}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "should reject unsupported content type",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"should fail\", () => {\r",
+									"    pm.response.to.have.status(415);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v1/notes/{{note}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"notes",
+								"{{note}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "should reject invalid JSON",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"should fail\", () => {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v1/notes/{{note}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"notes",
+								"{{note}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "should patch entity",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"updatedTitle\", JSON.parse(pm.request.body.raw).title);\r",
+									"\r",
+									"pm.test(\"should be sucessful\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"should contain patched entity\", () => {\r",
+									"    pm.expect(pm.response.json()).to.include({\r",
+									"        id: pm.environment.get(\"note\"),\r",
+									"        title: pm.environment.get(\"updatedTitle\")\r",
+									"    });\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Patched note title\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/v1/notes/{{note}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"notes",
+								"{{note}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "should have patched entity",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"should be successful\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"should contain updated entity\", () => {\r",
+									"    pm.expect(pm.response.json()).to.include({\r",
+									"        id: pm.environment.get(\"note\"),\r",
+									"        title: pm.environment.get(\"updatedTitle\")\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"pm.environment.unset(\"updatedTitle\");\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/notes/{{note}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"notes",
+								"{{note}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "should delete entity",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"should be sucessful\", () => {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"should be empty\", () => {\r",
+									"    pm.expect(pm.response.text()).to.be.empty;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/notes/{{note}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"notes",
+								"{{note}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "should have deleted entity",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"should fail\", () => {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.environment.unset(\"note\");\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/notes/{{note}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"notes",
+								"{{note}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "should not include deleted entity",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"should be successful\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"should be an empty array\", () => {\r",
+									"    pm.expect(pm.response.json()).to.be.an(\"array\");\r",
+									"    pm.expect(pm.response.json()).to.be.empty;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/notes",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"notes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

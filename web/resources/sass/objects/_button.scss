@@ -1,0 +1,19 @@
+@use "settings/roundings";
+@use "settings/spacings";
+
+@mixin styles {
+    align-items: center;
+    background: none;
+    border-radius: roundings.$medium;
+    border: 0;
+    box-sizing: border-box;
+    color: inherit;
+    cursor: pointer;
+    display: inline-flex;
+    font-size: 0.835em;
+    gap: spacings.$small;
+    justify-content: center;
+    padding: spacings.$medium;
+    position: relative;
+    text-decoration: none;
+}

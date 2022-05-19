@@ -1,0 +1,52 @@
+{
+	"extends": "../tsconfig.module.json",
+	"references": [
+		{
+			"path": "../model"
+		},
+		{
+			"path": "../data/memory"
+		},
+		{
+			"path": "../data/storage"
+		},
+		{
+			"path": "../data/rest"
+		}
+	],
+	"include": [
+		"src/**/*"
+	],
+	"files": [
+		"src/application.ts"
+	],
+	"compilerOptions": {
+		"outDir": "obj",
+		"rootDir": "src",
+		"paths": {
+			"@notes/web": [
+				"web/src/index.js"
+			],
+			"@notes/web/*": [
+				"web/src/*"
+			],
+			"@notes/model/*": [
+				"model/src/*"
+			],
+			"@notes/data-memory/*": [
+				"data/memory/src/*"
+			],
+			"@notes/data-storage/*": [
+				"data/storage/src/*"
+			],
+			"@notes/data-rest/*": [
+				"data/rest/src/*"
+			]
+		},
+		"jsx": "react"
+	},
+	"exclude": [
+		"node_modules",
+		"obj"
+	]
+}

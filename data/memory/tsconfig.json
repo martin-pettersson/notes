@@ -1,0 +1,27 @@
+{
+	"extends": "../../tsconfig.module.json",
+	"references": [
+		{
+			"path": "../../model"
+		}
+	],
+	"include": [
+		"src/**/*"
+	],
+	"compilerOptions": {
+		"outDir": "obj",
+		"rootDir": "src",
+		"paths": {
+			"@notes/data-memory/*": [
+				"data/memory/src/*"
+			],
+			"@notes/model/*": [
+				"model/src/*"
+			]
+		}
+	},
+	"exclude": [
+		"node_modules",
+		"obj"
+	]
+}

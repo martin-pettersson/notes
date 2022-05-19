@@ -1,0 +1,37 @@
+{
+    "name": "@notes/web",
+    "description": "Notes web client.",
+    "main": "obj/application.js",
+    "type": "module",
+    "sideEffects": false,
+    "exports": {
+        ".": "./obj/index.js",
+        "./application": "./obj/application/index.js",
+        "./components": "./obj/components/index.js",
+        "./serviceproviders": "./obj/serviceproviders/index.js"
+    },
+    "scripts": {
+        "build": "webpack --mode production",
+        "start": "webpack server --mode production",
+        "dev": "webpack server --mode development"
+    },
+    "devDependencies": {
+        "@moonwalkingbits/apollo": "^0.7.8",
+        "@types/react": "^18.0.9",
+        "@types/react-dom": "^18.0.3",
+        "copy-webpack-plugin": "^11.0.0",
+        "css-loader": "^6.7.1",
+        "extract-loader": "^5.1.0",
+        "file-loader": "^6.2.0",
+        "react": "^18.1.0",
+        "react-dom": "^18.1.0",
+        "react-router-dom": "^6.3.0",
+        "sass": "^1.51.0",
+        "sass-loader": "^12.6.0",
+        "ts-loader": "^9.3.0",
+        "typescript": "^4.6.4",
+        "webpack": "^5.72.1",
+        "webpack-cli": "^4.9.2",
+        "webpack-dev-server": "^4.9.0"
+    }
+}

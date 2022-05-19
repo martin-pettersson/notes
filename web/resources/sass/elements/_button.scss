@@ -1,0 +1,5 @@
+@use "objects/button";
+
+button {
+    @include button.styles();
+}

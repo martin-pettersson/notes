@@ -1,0 +1,90 @@
+@use "sass:color";
+@use "elements/h";
+@use "settings/colors";
+@use "settings/spacings";
+@use "settings/typography";
+
+.note {
+    $surface: colors.surface("background");
+
+    box-sizing: border-box;
+    display: grid;
+    grid-template-areas:
+        "header"
+        "content";
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    grid-area: note;
+    height: 100%;
+    padding: spacings.$large * 2;
+    position: relative;
+
+    &__header {
+        border-bottom: solid 1px colors.background($of: colors.surface("secondary"));
+        display: flex;
+        flex-direction: column;
+        gap: spacings.$medium;
+        grid-area: header;
+        margin-bottom: spacings.$large * 2;
+        padding-bottom: spacings.$large * 2;
+    }
+
+    &__actions {
+        align-items: center;
+        display: flex;
+        gap: spacings.$medium;
+        justify-content: flex-end;
+
+        button {
+            font-size: 1.2em;
+        }
+    }
+
+    &__title {
+        input {
+            @extend %h1;
+
+            background: colors.background($of: $surface);
+            border: 0;
+            color: colors.color($of: $surface);
+            margin-bottom: 0;
+            width: 100%;
+
+            &:focus {
+                outline: none;
+            }
+
+            &::placeholder {
+                color: colors.color($of: colors.surface("tertiary"));
+            }
+        }
+    }
+
+    &__content {
+        grid-area: content;
+        padding: spacings.$large 0;
+        position: relative;
+
+        textarea {
+            background: colors.background($of: $surface);
+            border: 0;
+            color: colors.color($of: $surface);
+            font-family: typography.family($for: "text");
+            font-size: 1.2em;
+            height: 100%;
+            left: 0;
+            position: absolute;
+            resize: none;
+            top: 0;
+            width: 100%;
+
+            &:focus {
+                outline: none;
+            }
+
+            &::placeholder {
+                color: colors.color($of: colors.surface("tertiary"));
+            }
+        }
+    }
+}

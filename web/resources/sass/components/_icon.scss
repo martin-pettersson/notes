@@ -1,0 +1,15 @@
+.icon {
+    display: inline-block;
+    height: 1em;
+    position: relative;
+    width: 1em;
+
+    > svg {
+        color: inherit;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+    }
+}
