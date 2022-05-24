@@ -20,8 +20,8 @@ class Repository<T extends AbstractEntity> implements RepositoryInterface<T> {
     }
     
     /** @inheritDoc */
-    public matching(criteria: CriteriaInterface<T>, signal?: AbortSignal): Promise<Set<T>> {
-        return this.strategy.matching(criteria, signal);
+    public matching(criteria: CriteriaInterface<T>): Promise<Set<T>> {
+        return this.strategy.matching(criteria);
     }
 }
 

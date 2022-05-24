@@ -46,10 +46,9 @@ class CreateNote {
      * Create a note entity instance from the given object.
      *
      * @param object Arbitrary note object representation.
-     * @param signal Abort signal indicating whether to abort the operation.
      * @return Promise resolving with a note instance.
      */
-    public async fromObject(object: any, signal?: AbortSignal): Promise<Note> {
+    public async fromObject(object: any): Promise<Note> {
         this.validator.validate(object, create);
 
         const now = new Date();
@@ -72,7 +71,7 @@ class CreateNote {
         );
 
         try {
-            await this.notes.insert(note, signal);
+            await this.notes.insert(note);
             await this.dispatcher.dispatch("note:created", new NoteEvent(note));
 
             return note;
