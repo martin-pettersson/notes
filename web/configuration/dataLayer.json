@@ -1,5 +1,5 @@
 {
-    "strategy": "rest",
+    "strategy": "memory",
     "rest": {
         "url": "http://localhost:3000"
     }
