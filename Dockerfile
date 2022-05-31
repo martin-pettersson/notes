@@ -1,4 +1,4 @@
-FROM node:16-alpine
+FROM node:18-alpine
 
 ARG environment=production
 ARG version=unknown
@@ -16,6 +16,6 @@ COPY --chown=node:node . ./
 
 USER node
 
-RUN npm ci && npm cache clean --force --loglevel=error
+RUN npm ci --workspace api && npm cache clean --force --loglevel=error
 
 CMD ["npm", "start", "--prefix", "api"]

@@ -11,8 +11,8 @@
         "./repositories": "./obj/repositories/index.js"
     },
     "scripts": {
-        "build": "tsc",
-        "postinstall": "npm run build"
+        "compile": "tsc --build",
+        "postinstall": "npm run compile"
     },
     "engines": {
         "node": ">=18"

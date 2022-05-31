@@ -14,11 +14,11 @@
     "scripts": {
         "start": "node obj/server.js",
         "start:development": "NODE_ENV=development node --inspect=0.0.0.0 obj/server.js",
-        "start:nodemon": "npm run build && npm run start:development",
+        "start:nodemon": "npm run compile && npm run start:development",
         "dev": "nodemon --config nodemon.json",
-        "build": "tsc --build",
+        "compile": "tsc --build",
         "test:integration": "newman run test/v1.postman_collection.json --environment test/development.postman_environment.json",
-        "postinstall": "npm run build"
+        "postinstall": "npm run compile"
     },
     "engines": {
         "node": ">=18"

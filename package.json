@@ -10,6 +10,6 @@
         "web"
     ],
     "scripts": {
-        "postinstall": "npm run build --workspaces --if-present"
+        "postinstall": "npm run compile --workspaces --if-present"
     }
 }

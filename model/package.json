@@ -18,10 +18,10 @@
         "./services": "./obj/services/index.js"
     },
     "scripts": {
-        "build": "tsc",
+        "compile": "tsc",
         "test": "mocha --recursive test --reporter dot",
         "cover": "c8 --100 npm test",
-        "postinstall": "npm run build"
+        "postinstall": "npm run compile"
     },
     "engines": {
         "node": ">=18"
