@@ -1,0 +1,47 @@
+name: Continuous Integration/Deployment
+on:
+  push:
+    branches:
+      - 'release/*'
+    tags:
+      - '*'
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16
+      - id: cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            */obj
+          key: ${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - if: steps.cache.outputs.cache-hit != 'true'
+        run: npm install
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16
+      - id: cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            */obj
+          key: ${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - run: npm test --workspaces --if-present
