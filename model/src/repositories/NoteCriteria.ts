@@ -80,7 +80,12 @@ class NoteCriteria extends AbstractPaginatedCriteria<Note> {
             return true;
         }
 
-        return note.title.includes(this.searchPhrase) || note.content.includes(this.searchPhrase);
+        const searchPhrase = this.searchPhrase.toLowerCase();
+
+        return (
+            note.title.toLowerCase().includes(searchPhrase) ||
+            note.content.toLowerCase().includes(searchPhrase)
+        );
     }
 }
 
