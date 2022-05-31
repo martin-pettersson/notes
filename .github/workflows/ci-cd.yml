@@ -45,3 +45,60 @@ jobs:
             **/obj
           key: ${{ runner.os }}-${{ hashFiles('package-lock.json') }}
       - run: npm test --workspaces --if-present
+  cover:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16
+      - id: cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            **/obj
+          key: ${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - run: npm run cover --workspaces --if-present
+  build-image:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo VERSION=$(echo "${GITHUB_REF}" | cut -d "/" -f 3- | sed -e "s/\//-/g") >> "${GITHUB_ENV}"
+      - run: docker build --tag notes:${{ env.VERSION }} --build-arg version=${{ env.VERSION }} api
+      - run: docker save --output notes.tar notes:${{ env.VERSION }}
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Docker Image
+          path: notes.tar
+  test-integration:
+    needs: build-image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16
+      - id: cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            **/obj
+          key: ${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - uses: actions/download-artifact@v2
+        with:
+          name: Docker Image
+      - run: |
+          IMAGE_NAME=$(docker load --input notes.tar)
+          echo VERSION=$(echo "${IMAGE_NAME}" | cut -d ":" -f 2-) >> "${GITHUB_ENV}"
+      - run: docker run --rm -d -e NODE_ENV=test -p 3000:3000 --name notes notes:${{ env.VERSION }}
+      - uses: angela-mylo/wait-for-response@1.0.2
+        with:
+          url: http://localhost:3000/health
+          responseCode: 204
+          timeout: 5000
+          interval: 500
+      - run: npm run test:integration --workspace api
+      - run: docker kill notes
