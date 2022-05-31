@@ -15,6 +15,9 @@
         "start": "webpack server --mode production",
         "dev": "webpack server --mode development"
     },
+    "engines": {
+        "node": ">=18"
+    },
     "devDependencies": {
         "@moonwalkingbits/apollo": "^0.7.8",
         "@types/react": "^18.0.9",

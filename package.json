@@ -8,5 +8,8 @@
         "data/rest",
         "api",
         "web"
-    ]
+    ],
+    "scripts": {
+        "postinstall": "npm run build --workspaces --if-present"
+    }
 }
