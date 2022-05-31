@@ -65,6 +65,7 @@ jobs:
     needs: cover
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - run: echo VERSION=$(echo "${GITHUB_REF}" | cut -d "/" -f 3- | sed -e "s/\//-/g") >> "${GITHUB_ENV}"
       - run: docker build --tag notes:${{ env.VERSION }} --build-arg version=${{ env.VERSION }} api
       - run: docker save --output notes.tar notes:${{ env.VERSION }}
