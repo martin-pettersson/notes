@@ -93,7 +93,7 @@ jobs:
           name: Docker Image
       - run: |
           IMAGE_NAME=$(docker load --input notes.tar)
-          echo VERSION=$(echo "${IMAGE_NAME}" | cut -d ":" -f 2-) >> "${GITHUB_ENV}"
+          echo VERSION=$(echo "${IMAGE_NAME}" | cut -d ":" -f 3-) >> "${GITHUB_ENV}"
       - run: docker run --rm -d -e NODE_ENV=test -p 3000:3000 --name notes notes:${{ env.VERSION }}
       - uses: angela-mylo/wait-for-response@1.0.2
         with:
