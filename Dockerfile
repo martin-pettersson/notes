@@ -16,6 +16,6 @@ COPY --chown=node:node . ./
 
 USER node
 
-RUN npm ci --workspace api && npm cache clean --force --loglevel=error
+RUN npm ci --only=production && npm cache clean --force --loglevel=error
 
 CMD ["npm", "start", "--prefix", "api"]
