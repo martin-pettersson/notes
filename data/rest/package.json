@@ -10,10 +10,9 @@
         "./repositories": "./obj/repositories/index.js"
     },
     "scripts": {
-        "compile": "tsc --build",
+        "build": "tsc --build",
         "test": "mocha --recursive test --reporter dot",
-        "cover": "c8 --100 npm test",
-        "postinstall": "npm run compile"
+        "cover": "c8 --exclude=**/test/** --reporter html --reporter text --reporter text-summary npm test"
     },
     "engines": {
         "node": ">=18"
@@ -26,6 +25,7 @@
         "chai": "^4.3.6",
         "chai-as-promised": "^7.1.1",
         "mocha": "^10.0.0",
+        "node-fetch": "^3.3.0",
         "sinon": "^14.0.0"
     }
 }

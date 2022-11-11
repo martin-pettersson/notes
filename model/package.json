@@ -17,20 +17,24 @@
         "./services": "./obj/services/index.js"
     },
     "scripts": {
-        "compile": "tsc",
+        "build": "tsc --build",
         "test": "mocha --recursive test --reporter dot",
-        "cover": "c8 --100 npm test",
-        "postinstall": "npm run compile"
+        "cover": "c8 --exclude=**/test/** --reporter html --reporter text --reporter text-summary npm test"
+    },
+    "typedoc": {
+        "entryPoint": "src/entities/index.ts",
+        "readmeFile": "./README.md",
+        "displayName": "Model"
     },
     "engines": {
         "node": ">=18"
     },
     "dependencies": {
+        "@types/uuid": "^8.3.4",
         "typescript": "^4.6.4",
         "uuid": "^8.3.2"
     },
     "devDependencies": {
-        "@types/uuid": "^8.3.4",
         "c8": "^7.11.2",
         "chai": "^4.3.6",
         "mocha": "^10.0.0",

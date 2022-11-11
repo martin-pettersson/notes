@@ -1,0 +1,15 @@
+{
+    "entryPointStrategy": "packages",
+    "entryPoints": [
+        "model",
+        "event"
+    ],
+    "out": "docs",
+    "name": "Notes",
+    "includeVersion": true,
+    "readme": "README.md",
+    "hideGenerator": true,
+    "sidebarLinks": {
+        "Source": "https://github.com/martin-pettersson/notes"
+    }
+}

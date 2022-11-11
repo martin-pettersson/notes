@@ -1,0 +1,12 @@
+runs:
+  using: 'composite'
+  steps:
+    - uses: ./.github/actions/cache-install
+    - id: cache-build
+      uses: actions/cache@v3
+      with:
+        path: '**/obj'
+        key: ${{ runner.os }}-cache-build-${{ github.run_number }}
+    - if: steps.cache-build.outputs.cache-hit != 'true'
+      shell: sh
+      run: npm run build

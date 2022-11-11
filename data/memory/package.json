@@ -10,10 +10,9 @@
         "./repositories": "./obj/repositories/index.js"
     },
     "scripts": {
-        "compile": "tsc --build",
+        "build": "tsc --build",
         "test": "mocha --recursive test --reporter dot",
-        "cover": "c8 --100 npm test",
-        "postinstall": "npm run compile"
+        "cover": "c8 --exclude=**/test/** --reporter html --reporter text --reporter text-summary npm test"
     },
     "engines": {
         "node": ">=18"

@@ -13,54 +13,69 @@ on:
     branches:
       - master
 jobs:
-  build:
+  install:
     runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/${{ github.repository }}/build:1.0
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 18
-      - id: cache
-        uses: actions/cache@v2
-        with:
-          path: |
-            node_modules
-            **/obj
-          key: ${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-      - if: steps.cache.outputs.cache-hit != 'true'
-        run: npm install
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/cache-install
+  build:
+    needs: install
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/${{ github.repository }}/build:1.0
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/cache-build
   test:
     needs: build
     runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/${{ github.repository }}/build:1.0
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/cache-test
+      - if: ${{ always() }}
+        run: npm coverage
+      - uses: actions/upload-artifact@v3
         with:
-          node-version: 18
-      - id: cache
-        uses: actions/cache@v2
-        with:
-          path: |
-            node_modules
-            **/obj
-          key: ${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-      - run: npm test --workspaces --if-present
+          name: coverage
+          path: coverage
   cover:
     needs: test
+    if: ${{ always() }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/download-artifact@v3
         with:
-          node-version: 18
-      - id: cache
-        uses: actions/cache@v2
+          name: coverage
+      - uses: irongut/CodeCoverageSummary@v1.3.0
         with:
-          path: |
-            node_modules
-            **/obj
-          key: ${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-      - run: npm run cover --workspaces --if-present
+          filename: cobertura-coverage.xml
+          fail_below_min: true
+          thresholds: '75 90'
+          format: markdown
+          output: both
+          badge: true
+      - id: find-pull-request
+        uses: jwalton/gh-find-current-pr@v1
+      - uses: marocchino/sticky-pull-request-comment@v2
+        if: ${{ steps.find-pull-request.outputs.number }}
+        with:
+          number: ${{ steps.find-pull-request.outputs.number }}
+          recreate: true
+          path: code-coverage-reults.md
+
   build-image:
     needs: cover
     runs-on: ubuntu-latest
@@ -77,17 +92,11 @@ jobs:
     needs: build-image
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: actions/setup-node@v1
         with:
           node-version: 18
-      - id: cache
-        uses: actions/cache@v2
-        with:
-          path: |
-            node_modules
-            **/obj
-          key: ${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - uses: ./.github/actions/cache-install
       - uses: actions/download-artifact@v2
         with:
           name: Docker Image

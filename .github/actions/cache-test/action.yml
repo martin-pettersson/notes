@@ -1,0 +1,12 @@
+runs:
+  using: 'composite'
+  steps:
+    - uses: ./.github/actions/cache-build
+    - id: cache-test
+      uses: actions/cache@v3
+      with:
+        path: coverage
+        key: ${{ runner.os }}-cache-test-${{ github.run_number }}
+    - if: steps.cache-test.outputs.cache-hit != 'true'
+      shell: sh
+      run: npm test

@@ -2,7 +2,7 @@ import chai from "chai";
 import chaiAsPromised from "chai-as-promised"
 import { NoteCriteria } from "@notes/model/repositories";
 import { NoteStrategy } from "@notes/data-rest/repositories";
-import { streamFrom } from "../index.js";
+import { Readable } from "stream";
 import { stub } from "sinon";
 
 chai.use(chaiAsPromised);
@@ -32,7 +32,7 @@ describe("NoteStrategy", () => {
 
     describe("#matching", () => {
         it("should return matching entities", async () => {
-            fetchMock.returns(new Response(streamFrom(JSON.stringify([noteMock]))));
+            fetchMock.returns(new Response(Readable.from(JSON.stringify([noteMock]))));
 
             expect(
                 JSON.stringify(Array.from(await strategy.matching(NoteCriteria.fromParameters({q: "title"}))))
@@ -42,7 +42,7 @@ describe("NoteStrategy", () => {
         });
 
         it("should return matching entities on given page", async () => {
-            fetchMock.returns(new Response(streamFrom(JSON.stringify([noteMock]))));
+            fetchMock.returns(new Response(Readable.from(JSON.stringify([noteMock]))));
 
             await strategy.matching(new NoteCriteria().onPage(2));
 
@@ -51,7 +51,7 @@ describe("NoteStrategy", () => {
         });
 
         it("should return matching entities with given page size", async () => {
-            fetchMock.returns(new Response(streamFrom(JSON.stringify([noteMock]))));
+            fetchMock.returns(new Response(Readable.from(JSON.stringify([noteMock]))));
 
             await strategy.matching(new NoteCriteria().withPageSize(20));
 
@@ -60,7 +60,7 @@ describe("NoteStrategy", () => {
         });
 
         it("should accept generic criteria", async () => {
-            fetchMock.returns(new Response(streamFrom(JSON.stringify([noteMock]))));
+            fetchMock.returns(new Response(Readable.from(JSON.stringify([noteMock]))));
 
             await strategy.matching(criteriaMock);
 
@@ -70,7 +70,7 @@ describe("NoteStrategy", () => {
         });
 
         it("should accept generic paginated criteria", async () => {
-            fetchMock.returns(new Response(streamFrom(JSON.stringify([noteMock]))));
+            fetchMock.returns(new Response(Readable.from(JSON.stringify([noteMock]))));
 
             await strategy.matching({isSatisfiedBy: () => true, offset: 10, limit: 10});
 

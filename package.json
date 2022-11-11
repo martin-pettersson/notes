@@ -11,6 +11,14 @@
         "web"
     ],
     "scripts": {
-        "postinstall": "npm run compile --workspaces --if-present"
+        "build": "tsc --build",
+        "test": "c8 --reporter none mocha --recursive {**,data/**}/test --reporter dot",
+        "cover": "c8 --exclude=**/test/** --reporter html --reporter text --reporter text-summary npm test",
+        "coverage": "c8 report --exclude=**/test/** --reporter cobertura --reporter text --reporter text-summary",
+        "check-coverage": "c8 check-coverage --exclude=**/test/** --100",
+        "docs": "typedoc"
+    },
+    "devDependencies": {
+        "typedoc": "^0.23.20"
     }
 }

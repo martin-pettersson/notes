@@ -3,7 +3,7 @@ import chaiAsPromised from "chai-as-promised"
 import { DuplicateEntityError, EntityNotFoundError } from "@notes/model/datamappers";
 import { Note } from "@notes/model/entities";
 import { NoteDataMapper } from "@notes/data-rest/datamappers";
-import { streamFrom } from "../index.js";
+import { Readable } from "stream";
 import { stub } from "sinon";
 
 chai.use(chaiAsPromised);
@@ -31,7 +31,7 @@ describe("NoteDataMapper", () => {
 
     describe("#get", () => {
         it("should return note by id", async () => {
-            fetchMock.returns(new Response(streamFrom(JSON.stringify(noteMock))));
+            fetchMock.returns(new Response(Readable.from(JSON.stringify(noteMock))));
 
             const note = await dataMapper.get(noteMock.id);
 
@@ -54,7 +54,7 @@ describe("NoteDataMapper", () => {
 
     describe("#insert", () => {
         it("should insert note into storage", async () => {
-            fetchMock.returns(new Response(streamFrom(JSON.stringify(noteMock)), {status: 201}));
+            fetchMock.returns(new Response(Readable.from(JSON.stringify(noteMock)), {status: 201}));
 
             await dataMapper.insert(noteMock);
 
@@ -67,7 +67,7 @@ describe("NoteDataMapper", () => {
         it("should throw if duplicate id", async () => {
             fetchMock.returns(
                 new Response(
-                    streamFrom(JSON.stringify({id: ["Must be unique"]})),
+                    Readable.from(JSON.stringify({id: ["Must be unique"]})),
                     {status: 422}
                 )
             );
@@ -78,7 +78,7 @@ describe("NoteDataMapper", () => {
         it("should throw if invalid note", async () => {
             fetchMock.returns(
                 new Response(
-                    streamFrom(JSON.stringify({id: ["Must be a valid UUID"]})),
+                    Readable.from(JSON.stringify({id: ["Must be a valid UUID"]})),
                     {status: 422}
                 )
             );
