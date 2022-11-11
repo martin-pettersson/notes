@@ -46,7 +46,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/cache-test
       - if: ${{ always() }}
-        run: npm coverage
+        run: npm run coverage
       - uses: actions/upload-artifact@v3
         with:
           name: coverage
