@@ -9,4 +9,4 @@ runs:
         key: ${{ runner.os }}-cache-build-${{ github.run_number }}
     - if: steps.cache-build.outputs.cache-hit != 'true'
       shell: sh
-      run: npm run build
+      run: node_modules/typescript/bin/tsc --build
