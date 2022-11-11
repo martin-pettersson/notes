@@ -1,7 +1,2 @@
-FROM node:18-alpine
-
-RUN mkdir /opt/notes && chown -R node:node /opt/notes
-
+FROM node:18-bullseye
 WORKDIR /opt/notes
-
-USER node

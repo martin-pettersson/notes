@@ -33,6 +33,8 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v3
+      - run: ls -l
+      - run: ls -l event
       - uses: ./.github/actions/cache-build
   test:
     needs: build
