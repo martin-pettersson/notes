@@ -33,7 +33,10 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v3
-      - run: mkdir event/obj
+      - run: |
+        whoami
+        echo "${UID}"
+        id
       - uses: ./.github/actions/cache-build
   test:
     needs: build
