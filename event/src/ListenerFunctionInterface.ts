@@ -1,4 +1,4 @@
-import { Event } from "@notes/model/event";
+import { Event } from "@notes/event";
 
 /**
  * Represents an event listener function.

@@ -1,4 +1,4 @@
-import { Dispatcher, Event } from "@notes/model/event";
+import { Dispatcher, Event } from "@notes/event";
 import { expect } from "chai";
 
 describe("Dispatcher", () => {

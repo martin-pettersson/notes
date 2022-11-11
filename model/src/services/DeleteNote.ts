@@ -1,5 +1,5 @@
 import { DataMapperInterface } from "@notes/model/datamappers";
-import { DispatcherInterface } from "@notes/model/event";
+import { DispatcherInterface } from "@notes/event";
 import { Note } from "@notes/model/entities";
 import { NoteEvent } from "@notes/model/events";
 

@@ -1,5 +1,10 @@
 {
 	"extends": "../tsconfig.module.json",
+	"references": [
+		{
+			"path": "../event"
+		}
+	],
 	"include": [
 		"src/**/*"
 	],

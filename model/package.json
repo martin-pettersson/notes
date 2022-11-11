@@ -12,7 +12,6 @@
         "./configuration/validation/note": "./obj/configuration/validation/note/index.js",
         "./datamappers": "./obj/datamappers/index.js",
         "./entities": "./obj/entities/index.js",
-        "./event": "./obj/event/index.js",
         "./events": "./obj/events/index.js",
         "./repositories": "./obj/repositories/index.js",
         "./services": "./obj/services/index.js"

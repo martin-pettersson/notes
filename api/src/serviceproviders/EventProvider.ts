@@ -1,6 +1,6 @@
 import { ConfigurationInterface } from "@moonwalkingbits/apollo/configuration";
 import { ContainerInterface } from "@moonwalkingbits/apollo/container";
-import { Dispatcher, DispatcherInterface } from "@notes/model/event";
+import { Dispatcher, DispatcherInterface } from "@notes/event";
 import { LoggerInterface } from "@moonwalkingbits/apollo/log";
 import { ServiceProviderInterface } from "@notes/api/serviceproviders";
 import { fetchConstructor } from "@notes/api";

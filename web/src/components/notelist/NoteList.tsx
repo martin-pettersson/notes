@@ -2,7 +2,7 @@ import * as React from "react";
 import { ApplicationContext, ApplicationContextInterface } from "@notes/web";
 import { Component, Context, ContextType, ReactElement } from "react";
 import { CreateNote, ListNotes } from "@notes/model/services";
-import { DispatcherInterface } from "@notes/model/event";
+import { DispatcherInterface } from "@notes/event";
 import { Icon } from "@notes/web/components";
 import { LoggerInterface } from "@moonwalkingbits/apollo/log";
 import { Note } from "@notes/model/entities";

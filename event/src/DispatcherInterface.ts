@@ -1,4 +1,4 @@
-import { Event, ListenerFunctionInterface, ListenerInterface } from "@notes/model/event";
+import { Event, ListenerFunctionInterface, ListenerInterface } from "@notes/event";
 
 /**
  * Represents an event dispatcher responsible for dispatching events to their respective listeners.

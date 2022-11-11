@@ -1,0 +1,32 @@
+{
+    "name": "@notes/event",
+    "description": "TODO",
+    "version": "0.1.0",
+    "main": "obj/index.js",
+    "type": "module",
+    "sideEffects": false,
+    "exports": {
+        ".": "./obj/index.js"
+    },
+    "scripts": {
+        "build": "tsc",
+        "test": "mocha --recursive test --reporter dot",
+        "cover": "c8 --100 npm test"
+    },
+    "typedoc": {
+        "entryPoint": "src/index.ts",
+        "readmeFile": "./README.md",
+        "displayName": "Event"
+    },
+    "engines": {
+        "node": ">=18"
+    },
+    "dependencies": {
+        "typescript": "^4.6.4"
+    },
+    "devDependencies": {
+        "c8": "^7.11.2",
+        "chai": "^4.3.6",
+        "mocha": "^10.0.0"
+    }
+}

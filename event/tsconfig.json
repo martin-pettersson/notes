@@ -1,0 +1,22 @@
+{
+    "extends": "../tsconfig.module.json",
+    "include": [
+        "src/**/*"
+    ],
+    "compilerOptions": {
+        "outDir": "obj",
+        "rootDir": "src",
+        "paths": {
+            "@notes/event": [
+                "event/src/index.js"
+            ],
+            "@notes/event/*": [
+                "event/src/*"
+            ]
+        }
+    },
+    "exclude": [
+        "node_modules",
+        "obj"
+    ]
+}

@@ -1,4 +1,4 @@
-import { Event, ListenerInterface } from "@notes/model/event";
+import { Event, ListenerInterface } from "@notes/event";
 import { LoggerInterface } from "@moonwalkingbits/apollo/log";
 import { inspect } from "util";
 

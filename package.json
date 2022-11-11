@@ -1,6 +1,7 @@
 {
     "name": "@notes/notes",
     "workspaces": [
+        "event",
         "model",
         "data/memory",
         "data/storage",

@@ -1,6 +1,6 @@
 import { Constructor } from "@notes/web";
 import { ContainerInterface } from "@moonwalkingbits/apollo/container";
-import { Dispatcher, DispatcherInterface, ListenerInterface } from "@notes/model/event";
+import { Dispatcher, DispatcherInterface, ListenerInterface } from "@notes/event";
 import { LoggerInterface } from "@moonwalkingbits/apollo/log";
 import { ServiceProviderInterface } from "@notes/web/serviceproviders";
 
